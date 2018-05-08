@@ -1,6 +1,6 @@
 
 for (let i = 0; i<=100; i++){
-    setTimeout(fillTank, 1000)
+    setTimeout(fillTank, 100*i)
 }
 
 function fillTank(){
@@ -25,7 +25,9 @@ function addBubble(){
     document.body.appendChild(bubble)
     // random positie
     let xMaxBubble = (window.innerWidth - 55)
+    let yMaxBubble = (window.innerHeight - 55)
     bubble.style.left = getRandomInt(xMaxBubble) + "px"
+    bubble.style.bottom = getRandomInt(yMaxBubble) + "px"
 }
 
 function getRandomInt(max) {
@@ -33,16 +35,16 @@ function getRandomInt(max) {
   }
 
   let fishes = document.getElementsByTagName("fish")
-  fishes[0].addEventListener("click", clickHandler)
- add
+  fishes.addEventListener("click", clickHandler)
+
   function clickHandler(a){
     console.log(a)
   }
 
 
-//
+
 // roep een functie aan als alles geladen is
-//
+
 window.addEventListener("load", function () {
     console.log("start het aquarium")
 })
