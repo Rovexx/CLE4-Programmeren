@@ -1,24 +1,32 @@
 // <reference path="gameobject.ts"/>
 
-class Astroid extends GameObject {
-
+class Astroid {
+    
+    private div : HTMLElement
+    
+    private x: number
+    private y: number
+    
     private speedX: number
     private speedY: number
     
     constructor() {
-        super()
         this.div = document.createElement("astroid")
         document.body.appendChild(this.div)
         
         this.x = window.innerWidth
         this.y = Math.random() * (window.innerHeight - 100)
-        
+
         this.speedX = Math.random() * 6 - 3
         this.speedY = -3 - (Math.random() * 6)
     }
 
+    public getRectangle(){
+        return this.div.getBoundingClientRect()
+    }
+    
     public hitSpaceship(){
-        this.speedY *= -1
+        this.speedX *= -1
     }
 
     public update() : void {

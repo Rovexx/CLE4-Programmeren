@@ -1,40 +1,18 @@
 "use strict";
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var GameObject = (function () {
-    function GameObject() {
-        console.log("I am a gameobject");
+var Astroid = (function () {
+    function Astroid() {
+        this.div = document.createElement("astroid");
+        document.body.appendChild(this.div);
+        this.x = window.innerWidth;
+        this.y = Math.random() * (window.innerHeight - 100);
+        this.speedX = Math.random() * 6 - 3;
+        this.speedY = -3 - (Math.random() * 6);
     }
-    GameObject.prototype.update = function () {
-        this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
-    };
-    GameObject.prototype.getRectangle = function () {
+    Astroid.prototype.getRectangle = function () {
         return this.div.getBoundingClientRect();
     };
-    return GameObject;
-}());
-var Astroid = (function (_super) {
-    __extends(Astroid, _super);
-    function Astroid() {
-        var _this = _super.call(this) || this;
-        _this.div = document.createElement("astroid");
-        document.body.appendChild(_this.div);
-        _this.x = window.innerWidth;
-        _this.y = Math.random() * (window.innerHeight - 100);
-        _this.speedX = Math.random() * 6 - 3;
-        _this.speedY = -3 - (Math.random() * 6);
-        return _this;
-    }
     Astroid.prototype.hitSpaceship = function () {
-        this.speedY *= -1;
+        this.speedX *= -1;
     };
     Astroid.prototype.update = function () {
         this.x += this.speedX;
@@ -48,36 +26,6 @@ var Astroid = (function (_super) {
         this.div.style.transform = "translate(" + this.x + "px, " + this.y + "px)";
     };
     return Astroid;
-}(GameObject));
-var PlayScreen = (function () {
-    function PlayScreen(g) {
-        this.astroids = [];
-        this.game = g;
-        this.spaceship = new Spaceship(87, 83, 65, 68);
-        for (var i = 0; i < 5; i++) {
-            this.astroids.push(new Astroid());
-        }
-    }
-    PlayScreen.prototype.update = function () {
-        for (var _i = 0, _a = this.astroids; _i < _a.length; _i++) {
-            var a = _a[_i];
-            if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
-                a.hitSpaceship();
-            }
-            if (a.getRectangle().left < 0) {
-                this.game.showGameoverScreen();
-            }
-            a.update();
-        }
-        this.spaceship.update();
-    };
-    PlayScreen.prototype.checkCollision = function (a, b) {
-        return (a.left <= b.right &&
-            b.left <= a.right &&
-            a.top <= b.bottom &&
-            b.top <= a.bottom);
-    };
-    return PlayScreen;
 }());
 var Game = (function () {
     function Game() {
@@ -116,10 +64,38 @@ var GameOver = (function () {
     };
     return GameOver;
 }());
+var PlayScreen = (function () {
+    function PlayScreen(g) {
+        this.astroids = [];
+        this.game = g;
+        this.spaceship = new Spaceship(87, 83, 65, 68);
+        for (var i = 0; i < 5; i++) {
+            this.astroids.push(new Astroid());
+        }
+    }
+    PlayScreen.prototype.update = function () {
+        for (var _i = 0, _a = this.astroids; _i < _a.length; _i++) {
+            var b = _a[_i];
+            if (this.checkCollision(b.getRectangle(), this.spaceship.getRectangle())) {
+                b.hitSpaceship();
+            }
+            if (b.getRectangle().left < 0) {
+            }
+            b.update();
+        }
+        this.spaceship.update();
+    };
+    PlayScreen.prototype.checkCollision = function (a, b) {
+        return (a.left <= b.right &&
+            b.left <= a.right &&
+            a.top <= b.bottom &&
+            b.top <= a.bottom);
+    };
+    return PlayScreen;
+}());
 var Spaceship = (function () {
     function Spaceship(up, down, left, right) {
         var _this = this;
-        _this = _super.call(this) || this;
         this.downSpeed = 0;
         this.upSpeed = 0;
         this.leftSpeed = 0;
@@ -131,11 +107,9 @@ var Spaceship = (function () {
         this.leftkey = left;
         this.rightkey = right;
         this.x = 20;
-        this.y = 200;
+        this.y = 20;
         window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
         window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
-        window.addEventListener("keyleft", function (e) { return _this.onKeyLeft(e); });
-        window.addEventListener("keyright", function (e) { return _this.onKeyRight(e); });
     }
     Spaceship.prototype.getRectangle = function () {
         return this.div.getBoundingClientRect();
@@ -148,6 +122,12 @@ var Spaceship = (function () {
             case this.downkey:
                 this.downSpeed = 5;
                 break;
+            case this.leftkey:
+                this.leftSpeed = 5;
+                break;
+            case this.rightkey:
+                this.rightSpeed = 5;
+                break;
         }
     };
     Spaceship.prototype.onKeyUp = function (e) {
@@ -158,20 +138,6 @@ var Spaceship = (function () {
             case this.downkey:
                 this.downSpeed = 0;
                 break;
-        }
-    };
-    Spaceship.prototype.onKeyLeft = function (e) {
-        switch (e.keyCode) {
-            case this.leftkey:
-                this.leftSpeed = 5;
-                break;
-            case this.rightkey:
-                this.rightSpeed = 5;
-                break;
-        }
-    };
-    Spaceship.prototype.onKeyRight = function (e) {
-        switch (e.keyCode) {
             case this.leftkey:
                 this.leftSpeed = 0;
                 break;

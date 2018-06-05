@@ -16,7 +16,6 @@ class Spaceship {
     private y : number
     
     constructor(up:number, down:number, left:number, right:number) {
-        super()
         this.div = document.createElement("spaceship")
         document.body.appendChild(this.div)
         
@@ -26,12 +25,10 @@ class Spaceship {
         this.rightkey   = right
         
         this.x      = 20
-        this.y      = 200
+        this.y      = 20
         
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
-        window.addEventListener("keyleft", (e: KeyboardEvent) => this.onKeyLeft(e))
-        window.addEventListener("keyright", (e: KeyboardEvent) => this.onKeyRight(e))
     }
 
     public getRectangle() {
@@ -45,7 +42,13 @@ class Spaceship {
                 break
             case this.downkey:
                 this.downSpeed = 5
-                break                   
+                break          
+            case this.leftkey:
+                this.leftSpeed = 5
+                break
+            case this.rightkey:
+                this.rightSpeed = 5
+                break          
         }
     }
 
@@ -57,22 +60,6 @@ class Spaceship {
             case this.downkey:
                 this.downSpeed = 0
                 break
-        }
-    }
-
-    private onKeyLeft(e: KeyboardEvent): void {
-        switch (e.keyCode) {
-            case this.leftkey:
-                this.leftSpeed = 5
-                break
-            case this.rightkey:
-                this.rightSpeed = 5
-                break 
-        }
-    }
-
-    private onKeyRight(e: KeyboardEvent): void {
-        switch (e.keyCode) {
             case this.leftkey:
                 this.leftSpeed = 0
                 break
@@ -85,11 +72,11 @@ class Spaceship {
     public update() {
         let newY = this.y - this.upSpeed + this.downSpeed
         let newX = this.x - this.leftSpeed + this.rightSpeed
-        // als de paddle binnen beeld blijft, dan ook echt updaten
+        // als het schip binnen beeld blijft, dan ook echt updaten
         if (newY > 0 && newY + 100 < window.innerHeight) this.y = newY
         this.div.style.transform = `translate(${this.x}px, ${this.y}px)`
 
-        // als de paddle binnen beeld blijft, dan ook echt updaten
+        // als het sschip binnen beeld blijft, dan ook echt updaten
         if (newX > 0 && newX + 100 < window.innerWidth) this.x = newX
         this.div.style.transform = `translate(${this.x}px, ${this.y}px)`
     }

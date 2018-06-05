@@ -1,6 +1,7 @@
-/// <reference path="astroid.ts"/>
+// <reference path="screen.ts"/>
+// <reference path="astroid.ts"/>
 
-class PlayScreen{
+class PlayScreen {
 
     private astroids: Astroid[] = []
     private spaceship: Spaceship
@@ -16,19 +17,19 @@ class PlayScreen{
     }
 
     public update(): void {
-        for (var a of this.astroids) {
+        for (var b of this.astroids) {
 
             // astroid hits spaceship
-            if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
-                a.hitSpaceship()
+            if (this.checkCollision(b.getRectangle(), this.spaceship.getRectangle())) {
+                b.hitSpaceship()
             }
 
             // astroid leaves the screen: gameover!
-            if (a.getRectangle().left < 0) {
-                this.game.showGameoverScreen()
+            if (b.getRectangle().left < 0) {
+                //this.game.showGameoverScreen()
             }
 
-            a.update()
+            b.update()
         }
 
         this.spaceship.update()

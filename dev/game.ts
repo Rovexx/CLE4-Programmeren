@@ -1,4 +1,4 @@
-/// <reference path="playscreen.ts"/>
+// <reference path="playscreen.ts"/>
 
 class Game {
     
