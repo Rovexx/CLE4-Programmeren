@@ -1,8 +1,8 @@
-// <reference path="playscreen.ts"/>
+/// <reference path="playscreen.ts"/>
 
 class Game {
     
-    private currentscreen:any
+    public currentscreen:any
 
     constructor() {
         this.currentscreen = new StartScreen(this)

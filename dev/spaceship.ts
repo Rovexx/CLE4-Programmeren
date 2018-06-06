@@ -1,7 +1,5 @@
-class Spaceship {
-    
-    private div:HTMLElement
-    
+class Spaceship extends GameObject {
+     
     private downkey : number
     private upkey   : number
     private leftkey : number
@@ -12,10 +10,8 @@ class Spaceship {
     private leftSpeed   : number = 0
     private rightSpeed  : number = 0
     
-    private x : number
-    private y : number
-    
     constructor(up:number, down:number, left:number, right:number) {
+        super()
         this.div = document.createElement("spaceship")
         document.body.appendChild(this.div)
         
@@ -24,15 +20,11 @@ class Spaceship {
         this.leftkey    = left
         this.rightkey   = right
         
-        this.x      = 20
-        this.y      = 20
+        this.x      = (window.innerWidth / 2)
+        this.y      = (window.innerHeight / 2)
         
         window.addEventListener("keydown", (e: KeyboardEvent) => this.onKeyDown(e))
         window.addEventListener("keyup", (e: KeyboardEvent) => this.onKeyUp(e))
-    }
-
-    public getRectangle() {
-        return this.div.getBoundingClientRect()
     }
 
     private onKeyDown(e: KeyboardEvent): void {
@@ -73,12 +65,13 @@ class Spaceship {
         let newY = this.y - this.upSpeed + this.downSpeed
         let newX = this.x - this.leftSpeed + this.rightSpeed
         // als het schip binnen beeld blijft, dan ook echt updaten
-        if (newY > 0 && newY + 100 < window.innerHeight) this.y = newY
-        this.div.style.transform = `translate(${this.x}px, ${this.y}px)`
+        if (newY > 0 && newY + 100 < window.innerHeight){
+            this.y = newY
+        } 
 
         // als het sschip binnen beeld blijft, dan ook echt updaten
         if (newX > 0 && newX + 100 < window.innerWidth) this.x = newX
-        this.div.style.transform = `translate(${this.x}px, ${this.y}px)`
+        super.update()
     }
     
 }
