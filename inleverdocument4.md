@@ -1,10 +1,8 @@
 # Inleverdocument CMTTHE01-4
 
-Dit is een opzet voor het inleverdocument. De exacte instructies vind je in de Modulewijzer.
-
 ## Speelbare game
 
-Link naar de online speelbare game.
+https://stud.hosted.hr.nl/0940512/game/docs/
 
 ## Checklist
 
@@ -32,4 +30,4 @@ Een link naar de peer review die in week 6 is gedaan.
 
 ## Extra uitdaging
 
-Nog geen
+Audio via de Howler.js library

@@ -36,7 +36,6 @@ var Astroid = (function (_super) {
     Astroid.prototype.removeAstroid = function () {
         this.div.remove();
         this.game.currentscreen.removeFromArray();
-        console.log("removing astroid");
     };
     Astroid.prototype.update = function () {
         this.x += this.speedX;
@@ -59,8 +58,6 @@ var PlayScreen = (function () {
         for (var _i = 0, _a = this.astroids; _i < _a.length; _i++) {
             var a = _a[_i];
             if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
-                console.log("hit");
-                console.log(this.gamefix);
                 this.gamefix++;
                 if (this.gamefix > 10) {
                     this.game.showGameoverScreen();
@@ -119,7 +116,7 @@ var GameOver = (function () {
         this.div = document.createElement("splash");
         document.body.appendChild(this.div);
         this.div.addEventListener("click", function () { return _this.splashClicked(); });
-        this.div.innerHTML = "I GAVE HER EVERYTHING SHE HAD CAPN";
+        this.div.innerHTML = "I GAVE HER EVERYTHING SHE GOT CAPN";
     }
     GameOver.prototype.update = function () {
     };

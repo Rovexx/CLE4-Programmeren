@@ -21,9 +21,6 @@ class PlayScreen {
 
             // astroid hits spaceship: gameover
             if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
-                
-                console.log("hit")
-                console.log(this.gamefix)
                 this.gamefix ++
                 if (this.gamefix > 10){
                     this.game.showGameoverScreen()

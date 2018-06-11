@@ -10,7 +10,7 @@ class GameOver {
         this.div = document.createElement("splash")
         document.body.appendChild(this.div)
         this.div.addEventListener("click", () => this.splashClicked())
-        this.div.innerHTML = "I GAVE HER EVERYTHING SHE HAD CAPN"
+        this.div.innerHTML = "I GAVE HER EVERYTHING SHE GOT CAPN"
     }
 
     public update() {
