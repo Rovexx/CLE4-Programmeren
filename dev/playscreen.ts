@@ -1,4 +1,5 @@
 /// <reference path="astroid.ts"/>
+/// <reference path="phaserbeam.ts"/>
 
 class PlayScreen {
 
@@ -9,7 +10,7 @@ class PlayScreen {
 
     constructor(g:Game) {
         this.game = g
-        this.spaceship = new Spaceship(87, 83, 65, 68)
+        this.spaceship = new Spaceship(87, 83, 65, 68, 32)
         // Start with 10 astroids, this is the ammount that will always be on the screen
         for (var i = 0; i < 10; i++) {
             this.astroids.push(new Astroid(this.game))
@@ -21,11 +22,24 @@ class PlayScreen {
 
             // astroid hits spaceship: gameover
             if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
-                this.gamefix ++
-                if (this.gamefix > 10){
+                // temporary dirty fix for collison during the first spawning session of astroids
+                if (this.gamefix <= 10){
+                    this.gamefix ++
+                }
+                else {
+                    allShesGot.play()
                     this.game.showGameoverScreen()
                 }
             }
+
+            // phaserbeam hits astroid: blow up astroid
+            if (this.spaceship.fired == true){
+                if (this.checkCollision(a.getRectangle(), this.spaceship.phaserbeam.getRectangle())) {
+                    explosion.play()
+                    a.removeAstroid()
+                }
+            }
+            
 
             // astroid leaves the screen: spawn a new one
             if (a.getRectangle().left < 0 || 
@@ -39,7 +53,6 @@ class PlayScreen {
 
             a.update()
         }
-
         this.spaceship.update()
     }
 

@@ -1,16 +1,23 @@
+/// <reference path="gameObject.ts"/>
+/// <reference path="phaserbeam.ts"/>
+
 class Spaceship extends GameObject {
      
-    private downkey : number
-    private upkey   : number
-    private leftkey : number
-    private rightkey   : number
+    private downkey     : number
+    private upkey       : number
+    private leftkey     : number
+    private rightkey    : number
+    private spacekey    : number
     
     private downSpeed   : number = 0
     private upSpeed     : number = 0
     private leftSpeed   : number = 0
     private rightSpeed  : number = 0
+
+    public phaserbeam   : Phaserbeam
+    public fired        : boolean = false
     
-    constructor(up:number, down:number, left:number, right:number) {
+    constructor(up:number, down:number, left:number, right:number, space:number) {
         super()
         this.div = document.createElement("spaceship")
         document.body.appendChild(this.div)
@@ -19,6 +26,7 @@ class Spaceship extends GameObject {
         this.downkey    = down
         this.leftkey    = left
         this.rightkey   = right
+        this.spacekey   = space
         
         this.x      = (window.innerWidth / 2)
         this.y      = (window.innerHeight / 2)
@@ -40,6 +48,9 @@ class Spaceship extends GameObject {
                 break
             case this.rightkey:
                 this.rightSpeed = 5
+                break
+            case this.spacekey:
+                //this.firePhasers()
                 break          
         }
     }
@@ -73,5 +84,14 @@ class Spaceship extends GameObject {
         if (newX > 0 && newX + 100 < window.innerWidth) this.x = newX
         super.update()
     }
-    
+
+    private firePhasers(){
+        if (this.fired == false){
+            //this.fired = true;
+            phaserFire.play()
+            this.phaserbeam = new Phaserbeam(this.x, this.y)
+            console.log("firing")
+        }
+        this.phaserbeam.update()
+    }
 }

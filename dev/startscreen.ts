@@ -18,6 +18,7 @@ class StartScreen {
     }
 
     private splashClicked() {
+        engage.play()
         this.game.showPlayScreen()
     }
 }

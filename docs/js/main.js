@@ -44,12 +44,110 @@ var Astroid = (function (_super) {
     };
     return Astroid;
 }(GameObject));
+var Spaceship = (function (_super) {
+    __extends(Spaceship, _super);
+    function Spaceship(up, down, left, right, space) {
+        var _this = _super.call(this) || this;
+        _this.downSpeed = 0;
+        _this.upSpeed = 0;
+        _this.leftSpeed = 0;
+        _this.rightSpeed = 0;
+        _this.fired = false;
+        _this.div = document.createElement("spaceship");
+        document.body.appendChild(_this.div);
+        _this.upkey = up;
+        _this.downkey = down;
+        _this.leftkey = left;
+        _this.rightkey = right;
+        _this.spacekey = space;
+        _this.x = (window.innerWidth / 2);
+        _this.y = (window.innerHeight / 2);
+        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
+        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
+        return _this;
+    }
+    Spaceship.prototype.onKeyDown = function (e) {
+        switch (e.keyCode) {
+            case this.upkey:
+                this.upSpeed = 5;
+                break;
+            case this.downkey:
+                this.downSpeed = 5;
+                break;
+            case this.leftkey:
+                this.leftSpeed = 5;
+                break;
+            case this.rightkey:
+                this.rightSpeed = 5;
+                break;
+            case this.spacekey:
+                break;
+        }
+    };
+    Spaceship.prototype.onKeyUp = function (e) {
+        switch (e.keyCode) {
+            case this.upkey:
+                this.upSpeed = 0;
+                break;
+            case this.downkey:
+                this.downSpeed = 0;
+                break;
+            case this.leftkey:
+                this.leftSpeed = 0;
+                break;
+            case this.rightkey:
+                this.rightSpeed = 0;
+                break;
+        }
+    };
+    Spaceship.prototype.update = function () {
+        var newY = this.y - this.upSpeed + this.downSpeed;
+        var newX = this.x - this.leftSpeed + this.rightSpeed;
+        if (newY > 0 && newY + 100 < window.innerHeight) {
+            this.y = newY;
+        }
+        if (newX > 0 && newX + 100 < window.innerWidth)
+            this.x = newX;
+        _super.prototype.update.call(this);
+    };
+    Spaceship.prototype.firePhasers = function () {
+        if (this.fired == false) {
+            phaserFire.play();
+            this.phaserbeam = new Phaserbeam(this.x, this.y);
+            console.log("firing");
+        }
+        this.phaserbeam.update();
+    };
+    return Spaceship;
+}(GameObject));
+var Phaserbeam = (function (_super) {
+    __extends(Phaserbeam, _super);
+    function Phaserbeam(x, y) {
+        var _this = _super.call(this) || this;
+        _this.div = document.createElement("phaserbeam");
+        document.body.appendChild(_this.div);
+        _this.x = x;
+        _this.y = y;
+        return _this;
+    }
+    Phaserbeam.prototype.removePhaserbeam = function () {
+        this.div.remove();
+    };
+    Phaserbeam.prototype.update = function () {
+        this.y - 5;
+        if (this.getRectangle().top < -315) {
+            this.removePhaserbeam();
+        }
+        _super.prototype.update.call(this);
+    };
+    return Phaserbeam;
+}(GameObject));
 var PlayScreen = (function () {
     function PlayScreen(g) {
         this.astroids = [];
         this.gamefix = 0;
         this.game = g;
-        this.spaceship = new Spaceship(87, 83, 65, 68);
+        this.spaceship = new Spaceship(87, 83, 65, 68, 32);
         for (var i = 0; i < 10; i++) {
             this.astroids.push(new Astroid(this.game));
         }
@@ -58,9 +156,18 @@ var PlayScreen = (function () {
         for (var _i = 0, _a = this.astroids; _i < _a.length; _i++) {
             var a = _a[_i];
             if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
-                this.gamefix++;
-                if (this.gamefix > 10) {
+                if (this.gamefix <= 10) {
+                    this.gamefix++;
+                }
+                else {
+                    allShesGot.play();
                     this.game.showGameoverScreen();
+                }
+            }
+            if (this.spaceship.fired == true) {
+                if (this.checkCollision(a.getRectangle(), this.spaceship.phaserbeam.getRectangle())) {
+                    explosion.play();
+                    a.removeAstroid();
                 }
             }
             if (a.getRectangle().left < 0 ||
@@ -92,6 +199,7 @@ var Game = (function () {
     function Game() {
         this.currentscreen = new StartScreen(this);
         this.gameLoop();
+        music.play();
     }
     Game.prototype.gameLoop = function () {
         var _this = this;
@@ -116,7 +224,7 @@ var GameOver = (function () {
         this.div = document.createElement("splash");
         document.body.appendChild(this.div);
         this.div.addEventListener("click", function () { return _this.splashClicked(); });
-        this.div.innerHTML = "I GAVE HER EVERYTHING SHE GOT CAPN";
+        this.div.innerHTML = "I'm giving her all she's got, captain!";
     }
     GameOver.prototype.update = function () {
     };
@@ -125,70 +233,6 @@ var GameOver = (function () {
     };
     return GameOver;
 }());
-var Spaceship = (function (_super) {
-    __extends(Spaceship, _super);
-    function Spaceship(up, down, left, right) {
-        var _this = _super.call(this) || this;
-        _this.downSpeed = 0;
-        _this.upSpeed = 0;
-        _this.leftSpeed = 0;
-        _this.rightSpeed = 0;
-        _this.div = document.createElement("spaceship");
-        document.body.appendChild(_this.div);
-        _this.upkey = up;
-        _this.downkey = down;
-        _this.leftkey = left;
-        _this.rightkey = right;
-        _this.x = (window.innerWidth / 2);
-        _this.y = (window.innerHeight / 2);
-        window.addEventListener("keydown", function (e) { return _this.onKeyDown(e); });
-        window.addEventListener("keyup", function (e) { return _this.onKeyUp(e); });
-        return _this;
-    }
-    Spaceship.prototype.onKeyDown = function (e) {
-        switch (e.keyCode) {
-            case this.upkey:
-                this.upSpeed = 5;
-                break;
-            case this.downkey:
-                this.downSpeed = 5;
-                break;
-            case this.leftkey:
-                this.leftSpeed = 5;
-                break;
-            case this.rightkey:
-                this.rightSpeed = 5;
-                break;
-        }
-    };
-    Spaceship.prototype.onKeyUp = function (e) {
-        switch (e.keyCode) {
-            case this.upkey:
-                this.upSpeed = 0;
-                break;
-            case this.downkey:
-                this.downSpeed = 0;
-                break;
-            case this.leftkey:
-                this.leftSpeed = 0;
-                break;
-            case this.rightkey:
-                this.rightSpeed = 0;
-                break;
-        }
-    };
-    Spaceship.prototype.update = function () {
-        var newY = this.y - this.upSpeed + this.downSpeed;
-        var newX = this.x - this.leftSpeed + this.rightSpeed;
-        if (newY > 0 && newY + 100 < window.innerHeight) {
-            this.y = newY;
-        }
-        if (newX > 0 && newX + 100 < window.innerWidth)
-            this.x = newX;
-        _super.prototype.update.call(this);
-    };
-    return Spaceship;
-}(GameObject));
 var StartScreen = (function () {
     function StartScreen(g) {
         var _this = this;
@@ -201,6 +245,7 @@ var StartScreen = (function () {
     StartScreen.prototype.update = function () {
     };
     StartScreen.prototype.splashClicked = function () {
+        engage.play();
         this.game.showPlayScreen();
     };
     return StartScreen;

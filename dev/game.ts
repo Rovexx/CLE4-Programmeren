@@ -1,12 +1,15 @@
 /// <reference path="playscreen.ts"/>
+/// <reference path="audio.js"/>
 
 class Game {
     
     public currentscreen:any
+    public audio:any
 
     constructor() {
         this.currentscreen = new StartScreen(this)
         this.gameLoop()        
+        music.play()
     }
     
     private gameLoop():void{

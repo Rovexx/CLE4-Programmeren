@@ -7,7 +7,8 @@
         "noUnusedParameters": true,
         "strictPropertyInitialization": false,
         "sourceMap": true,
-        "outFile": "docs/js/main.js"
+        "outFile": "docs/js/main.js",
+        "allowJs": true
     },
     "include": [
         "dev/**/*"
