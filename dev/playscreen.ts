@@ -1,4 +1,3 @@
-// <reference path="screen.ts"/>
 /// <reference path="astroid.ts"/>
 
 class PlayScreen {
@@ -6,12 +5,13 @@ class PlayScreen {
     private astroids: Astroid[] = []
     private spaceship: Spaceship
     private game: Game
+    private gamefix: number = 0
 
     constructor(g:Game) {
         this.game = g
         this.spaceship = new Spaceship(87, 83, 65, 68)
-        // start the game with 5 astroids
-        for (var i = 0; i < 15; i++) {
+        // Start with 10 astroids, this is the ammount that will always be on the screen
+        for (var i = 0; i < 10; i++) {
             this.astroids.push(new Astroid(this.game))
         }
     }
@@ -21,19 +21,23 @@ class PlayScreen {
 
             // astroid hits spaceship: gameover
             if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
-                //this.game.showGameoverScreen()
+                
+                console.log("hit")
+                console.log(this.gamefix)
+                this.gamefix ++
+                if (this.gamefix > 10){
+                    this.game.showGameoverScreen()
+                }
             }
 
             // astroid leaves the screen: spawn a new one
             if (a.getRectangle().left < 0 || 
                 a.getRectangle().right > window.innerWidth ||  
-                a.getRectangle().bottom < 0) {
+                a.getRectangle().bottom > window.innerHeight) {
                     // remove old astroid
                     a.removeAstroid()
                     // spawn new astroid
                     this.astroids.push(new Astroid(this.game))
-                    console.log("new astroid")
-                    console.log(a.getRectangle().right)
             }
 
             a.update()

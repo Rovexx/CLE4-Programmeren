@@ -12,12 +12,12 @@ class Astroid extends GameObject {
         this.game = g
         this.div = document.createElement("astroid")
         document.body.appendChild(this.div)
-        
+                
         this.x = Math.random() * window.innerWidth
-        this.y = 0;
+        this.y = -100;
 
-        this.speedX = Math.random() * 0.5
-        this.speedY = Math.random() * 4
+        this.speedX = (Math.random() * 0.5)
+        this.speedY = 1 + (Math.random() * 4)
     }
 
     public removeAstroid(){

@@ -28,9 +28,9 @@ var Astroid = (function (_super) {
         _this.div = document.createElement("astroid");
         document.body.appendChild(_this.div);
         _this.x = Math.random() * window.innerWidth;
-        _this.y = 0;
-        _this.speedX = Math.random() * 0.5;
-        _this.speedY = Math.random() * 4;
+        _this.y = -100;
+        _this.speedX = (Math.random() * 0.5);
+        _this.speedY = 1 + (Math.random() * 4);
         return _this;
     }
     Astroid.prototype.removeAstroid = function () {
@@ -48,9 +48,10 @@ var Astroid = (function (_super) {
 var PlayScreen = (function () {
     function PlayScreen(g) {
         this.astroids = [];
+        this.gamefix = 0;
         this.game = g;
         this.spaceship = new Spaceship(87, 83, 65, 68);
-        for (var i = 0; i < 15; i++) {
+        for (var i = 0; i < 10; i++) {
             this.astroids.push(new Astroid(this.game));
         }
     }
@@ -58,14 +59,18 @@ var PlayScreen = (function () {
         for (var _i = 0, _a = this.astroids; _i < _a.length; _i++) {
             var a = _a[_i];
             if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
+                console.log("hit");
+                console.log(this.gamefix);
+                this.gamefix++;
+                if (this.gamefix > 10) {
+                    this.game.showGameoverScreen();
+                }
             }
             if (a.getRectangle().left < 0 ||
                 a.getRectangle().right > window.innerWidth ||
-                a.getRectangle().bottom < 0) {
+                a.getRectangle().bottom > window.innerHeight) {
                 a.removeAstroid();
                 this.astroids.push(new Astroid(this.game));
-                console.log("new astroid");
-                console.log(a.getRectangle().right);
             }
             a.update();
         }
@@ -194,7 +199,7 @@ var StartScreen = (function () {
         this.div = document.createElement("splash");
         document.body.appendChild(this.div);
         this.div.addEventListener("click", function () { return _this.splashClicked(); });
-        this.div.innerHTML = "START THE GAME";
+        this.div.innerHTML = "ENGAGE";
     }
     StartScreen.prototype.update = function () {
     };
