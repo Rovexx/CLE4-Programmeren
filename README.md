@@ -20,7 +20,7 @@ Mijn spaceship en astroids maken gebruik van inheritance omdat zij het gameObjec
 
 ## Klassendiagram
 
-![save the spaceship](https://user-images.githubusercontent.com/32699476/41275743-319bd61e-6e22-11e8-9d1e-88364774db21.png)
+![save the spaceship](https://user-images.githubusercontent.com/32699476/41283498-0752d834-6e37-11e8-9e09-2203c788da00.png)
 
 ## Peer review
 
