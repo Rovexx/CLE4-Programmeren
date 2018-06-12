@@ -24,7 +24,7 @@ Mijn spaceship en astroids maken gebruik van inheritance omdat zij het gameObjec
 
 ## Peer review
 
-undergoing review...
+https://github.com/Rovexx/CLE4-Programmeren/issues/1
 
 ## Extra uitdaging
 
