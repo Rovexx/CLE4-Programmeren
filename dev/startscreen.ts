@@ -13,10 +13,6 @@ class StartScreen {
         this.div.innerHTML = "ENGAGE"
     }
 
-    public update(){
-
-    }
-
     private splashClicked() {
         engage.play()
         this.game.showPlayScreen()

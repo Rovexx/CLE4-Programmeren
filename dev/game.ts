@@ -24,7 +24,7 @@ class Game {
 
     public showGameoverScreen() {
         document.body.innerHTML = ""
-        this.currentscreen = new GameOver(this)
+        this.currentscreen = new GameOverScreen(this)
     }
 } 
 
