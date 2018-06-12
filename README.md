@@ -25,6 +25,7 @@ Mijn spaceship en astroids maken gebruik van inheritance omdat zij het gameObjec
 ## Peer review
 
 https://github.com/Sweetpurple616/PGRM04/issues/1
+
 https://github.com/JeroenvanderRhee/game-prog/issues/1
 
 ## Extra uitdaging
