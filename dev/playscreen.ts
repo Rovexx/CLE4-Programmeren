@@ -38,7 +38,6 @@ class PlayScreen {
                     explosion.play()
                     this.astroids[a].removeAstroid()
                     this.score++
-                    console.log(this.score)
                     break
                 }
             }
