@@ -26,7 +26,6 @@ var Astroid = (function (_super) {
         var _this = _super.call(this) || this;
         _this.game = g;
         _this.div = document.createElement("astroid");
-        _this.div.style.transform = "translate(-60px, -60px)";
         document.body.appendChild(_this.div);
         _this.x = Math.random() * window.innerWidth;
         _this.y = -100;
