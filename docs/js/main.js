@@ -519,9 +519,8 @@ var PlayScreen = (function () {
         }
     }
     PlayScreen.prototype.update = function () {
-        for (var _i = 0, _a = this.astroids; _i < _a.length; _i++) {
-            var a = _a[_i];
-            if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
+        for (var a = this.astroids.length - 1; a >= 0; a--) {
+            if (this.checkCollision(this.astroids[a].getRectangle(), this.spaceship.getRectangle())) {
                 if (this.gamefix <= 10) {
                     this.gamefix++;
                 }
@@ -531,17 +530,19 @@ var PlayScreen = (function () {
                 }
             }
             if (this.spaceship.fired == true) {
-                if (this.checkCollision(a.getRectangle(), this.phaserbeam.getRectangle())) {
-                    a.removeAstroid();
+                if (this.checkCollision(this.astroids[a].getRectangle(), this.phaserbeam.getRectangle())) {
+                    this.astroids[a].removeAstroid();
+                    break;
                 }
             }
-            if (a.getRectangle().left < 0 ||
-                a.getRectangle().right > window.innerWidth ||
-                a.getRectangle().bottom > (window.innerHeight + 50)) {
-                a.removeAstroid();
+            if (this.astroids[a].getRectangle().left < 0 ||
+                this.astroids[a].getRectangle().right > window.innerWidth ||
+                this.astroids[a].getRectangle().bottom > (window.innerHeight + 50)) {
+                this.astroids[a].removeAstroid();
                 this.astroids.push(new Astroid(this.game));
+                break;
             }
-            a.update();
+            this.astroids[a].update();
         }
         this.spaceship.update();
         if (this.spaceship.fired == true) {

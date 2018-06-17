@@ -19,10 +19,10 @@ class PlayScreen {
     }
 
     public update(): void {
-        for (var a of this.astroids) {
-            //var a = this.astroids.length-1; a>=0; a--
+        for (var a = this.astroids.length-1; a>=0; a--) {
+            //var a of this.astroids
             // astroid hits spaceship: gameover
-            if (this.checkCollision(a.getRectangle(), this.spaceship.getRectangle())) {
+            if (this.checkCollision(this.astroids[a].getRectangle(), this.spaceship.getRectangle())) {
                 // temporary dirty fix for collison during the first spawning session of astroids
                 if (this.gamefix <= 10){
                     this.gamefix ++
@@ -35,22 +35,24 @@ class PlayScreen {
 
             // phaserbeam hits astroid: blow up astroid
             if (this.spaceship.fired == true){
-                if (this.checkCollision(a.getRectangle(), this.phaserbeam.getRectangle())) {
+                if (this.checkCollision(this.astroids[a].getRectangle(), this.phaserbeam.getRectangle())) {
                     //explosion.play()
-                    a.removeAstroid()
+                    this.astroids[a].removeAstroid()
+                    break
                 }
             }
 
             // astroid leaves the screen: spawn a new one
-            if (a.getRectangle().left < 0 || 
-                a.getRectangle().right > window.innerWidth ||  
-                a.getRectangle().bottom > (window.innerHeight + 50)) {
+            if (this.astroids[a].getRectangle().left < 0 || 
+            this.astroids[a].getRectangle().right > window.innerWidth ||  
+            this.astroids[a].getRectangle().bottom > (window.innerHeight + 50)) {
                     // remove old astroid
-                    a.removeAstroid()
+                    this.astroids[a].removeAstroid()
                     // spawn new astroid
                     this.astroids.push(new Astroid(this.game))
+                    break
             }
-            a.update()
+            this.astroids[a].update()
         }
         this.spaceship.update()
         // als er een laser is update hem
@@ -78,13 +80,6 @@ class PlayScreen {
             b.top <= a.bottom)
     }
 
-    // public removeFromArray(removeMe: Astroid) {
-    //     for (let i = 0;i< this.astroids.length ;i++) {
-    //         if (this.astroids[i] == removeMe) {
-    //             this.astroids.splice(i, 1)
-    //         }
-    //     }
-    // }
     public removeFromArray(removedMe: Astroid) {
         let i = this.astroids.indexOf(removedMe)
         this.astroids.splice(i, 1);
