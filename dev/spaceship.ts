@@ -14,11 +14,13 @@ class Spaceship extends GameObject {
     private leftSpeed   : number = 0
     private rightSpeed  : number = 0
 
-    public phaserbeam   : Phaserbeam
     public fired        : boolean = false
+
+    private game:Game
     
-    constructor(up:number, down:number, left:number, right:number, space:number) {
+    constructor(up:number, down:number, left:number, right:number, space:number, g:Game) {
         super()
+        this.game = g
         this.div = document.createElement("spaceship")
         document.body.appendChild(this.div)
         
@@ -50,7 +52,7 @@ class Spaceship extends GameObject {
                 this.rightSpeed = 5
                 break
             case this.spacekey:
-                //this.firePhasers()
+                this.game.currentscreen.firePhasers()
                 break          
         }
     }
@@ -83,15 +85,5 @@ class Spaceship extends GameObject {
         // als het sschip binnen beeld blijft, dan ook echt updaten
         if (newX > 0 && newX + 100 < window.innerWidth) this.x = newX
         super.update()
-    }
-
-    private firePhasers(){
-        if (this.fired == false){
-            //this.fired = true;
-            phaserFire.play()
-            this.phaserbeam = new Phaserbeam(this.x, this.y)
-            console.log("firing")
-        }
-        this.phaserbeam.update()
     }
 }

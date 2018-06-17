@@ -1,25 +1,31 @@
 /// <reference path="gameObject.ts"/>
-/// <reference path="spaceship.ts"/>
 
 class Phaserbeam extends GameObject {
-    
-    constructor(x:number, y:number){
+
+    private game:Game
+
+    constructor(g:Game){
         super();
+        this.game = g
         this.div = document.createElement("phaserbeam")
         document.body.appendChild(this.div)
 
-        this.x = x
-        this.y = y
+        // start the beam in the middle of the ship
+        this.x = this.game.currentscreen.spaceship.x + 42
+        this.y = this.game.currentscreen.spaceship.y - 270
     }
 
-    public removePhaserbeam(){
+    private removePhaserbeam(){
         this.div.remove()
+        this.game.currentscreen.spaceship.fired = false
     }
 
     public update() : void {
-        this.y - 5
-
-        if (this.getRectangle().top < -315){
+        
+        // move the beam up
+        this.y -= 10
+        // remove phaserbeam element when it is far outside of the screen
+        if (this.getRectangle().bottom < -1315){
             this.removePhaserbeam()
         }  
 

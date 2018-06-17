@@ -1,6 +1,6 @@
 // <reference path="screen.ts"/>
 
-class GameOverScreen {
+class WinScreen {
 
     private div: HTMLElement
     private game: Game
@@ -10,7 +10,11 @@ class GameOverScreen {
         this.div = document.createElement("splash")
         document.body.appendChild(this.div)
         this.div.addEventListener("click", () => this.splashClicked())
-        this.div.innerHTML = "I'm giving her all she's got, captain!"
+        this.div.innerHTML = "You won!, enjoy some music"
+    }
+
+    public update(){
+        
     }
 
     private splashClicked() {

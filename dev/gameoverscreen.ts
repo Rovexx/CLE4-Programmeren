@@ -1,23 +1,23 @@
 // <reference path="screen.ts"/>
 
-class StartScreen {
+class GameOverScreen {
 
     private div: HTMLElement
-    private game : Game
+    private game: Game
 
-    constructor(g:Game) {
+    constructor(g: Game) {
         this.game = g
         this.div = document.createElement("splash")
         document.body.appendChild(this.div)
-        this.div.addEventListener("click", ()=>this.splashClicked())
-        this.div.innerHTML = "Shoot and evade all astroids" + "<br><br><br>" + "ENGAGE"
+        this.div.addEventListener("click", () => this.splashClicked())
+        this.div.innerHTML = "I'm giving her all she's got, captain!"
     }
 
     public update(){
+        
     }
 
     private splashClicked() {
-        engage.play()
         this.game.showPlayScreen()
     }
 }
