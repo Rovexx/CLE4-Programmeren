@@ -12,7 +12,7 @@ class Phaserbeam extends GameObject {
 
         // start the beam in the middle of the ship
         this.x = this.game.currentscreen.spaceship.x + 42
-        this.y = this.game.currentscreen.spaceship.y - 270
+        this.y = this.game.currentscreen.spaceship.y - 120
     }
 
     private removePhaserbeam(){
@@ -25,7 +25,7 @@ class Phaserbeam extends GameObject {
         // move the beam up
         this.y -= 10
         // remove phaserbeam element when it is far outside of the screen
-        if (this.getRectangle().bottom < -1315){
+        if (this.getRectangle().bottom < -200){
             this.removePhaserbeam()
         }  
 

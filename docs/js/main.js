@@ -491,7 +491,7 @@ var Phaserbeam = (function (_super) {
         _this.div = document.createElement("phaserbeam");
         document.body.appendChild(_this.div);
         _this.x = _this.game.currentscreen.spaceship.x + 42;
-        _this.y = _this.game.currentscreen.spaceship.y - 270;
+        _this.y = _this.game.currentscreen.spaceship.y - 120;
         return _this;
     }
     Phaserbeam.prototype.removePhaserbeam = function () {
@@ -500,7 +500,7 @@ var Phaserbeam = (function (_super) {
     };
     Phaserbeam.prototype.update = function () {
         this.y -= 10;
-        if (this.getRectangle().bottom < -1315) {
+        if (this.getRectangle().bottom < -200) {
             this.removePhaserbeam();
         }
         _super.prototype.update.call(this);

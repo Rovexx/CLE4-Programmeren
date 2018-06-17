@@ -1,5 +1,3 @@
-// <reference path="screen.ts"/>
-
 class GameOverScreen {
 
     private div: HTMLElement

@@ -1,5 +1,4 @@
 /// <reference path="gameObject.ts"/>
-/// <reference path="phaserbeam.ts"/>
 
 class Spaceship extends GameObject {
      

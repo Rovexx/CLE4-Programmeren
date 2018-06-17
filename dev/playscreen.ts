@@ -1,5 +1,3 @@
-// <reference path="astroid.ts"/>
-
 class PlayScreen {
 
     private phaserbeam: Phaserbeam
