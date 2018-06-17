@@ -37,7 +37,7 @@ class PlayScreen {
             // phaserbeam hits astroid: blow up astroid
             if (this.spaceship.fired == true){
                 if (this.checkCollision(this.astroids[a].getRectangle(), this.phaserbeam.getRectangle())) {
-                    //explosion.play()d
+                    explosion.play()
                     this.astroids[a].removeAstroid()
                     this.score++
                     console.log(this.score)
