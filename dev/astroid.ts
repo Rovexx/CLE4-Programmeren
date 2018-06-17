@@ -23,7 +23,6 @@ class Astroid extends GameObject {
     public removeAstroid(){
         this.div.remove()
         this.game.currentscreen.removeFromArray(this)
-        //this.game.currentscreen.score ++
     }
 
     public update() : void {

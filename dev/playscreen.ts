@@ -1,4 +1,4 @@
-/// <reference path="astroid.ts"/>
+// <reference path="astroid.ts"/>
 
 class PlayScreen {
 
@@ -31,13 +31,16 @@ class PlayScreen {
                     allShesGot.play()
                     this.game.showGameoverScreen()
                 }
+                break
             }
 
             // phaserbeam hits astroid: blow up astroid
             if (this.spaceship.fired == true){
                 if (this.checkCollision(this.astroids[a].getRectangle(), this.phaserbeam.getRectangle())) {
-                    //explosion.play()
+                    //explosion.play()d
                     this.astroids[a].removeAstroid()
+                    this.score++
+                    console.log(this.score)
                     break
                 }
             }
@@ -52,18 +55,21 @@ class PlayScreen {
                     this.astroids.push(new Astroid(this.game))
                     break
             }
+
             this.astroids[a].update()
         }
+        // update spaceship
         this.spaceship.update()
-        // als er een laser is update hem
+        // if there is a phaser shot, update it
         if (this.spaceship.fired == true){
             this.phaserbeam.update()
         }
-
+        // if you destroyed all astroids show win screen
         if (this.score == 10){
             winMusic.play()
             this.game.showWinScreen()
         }
+
     }
     public firePhasers(){
         if (this.spaceship.fired == false){

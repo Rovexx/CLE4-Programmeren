@@ -528,10 +528,13 @@ var PlayScreen = (function () {
                     allShesGot.play();
                     this.game.showGameoverScreen();
                 }
+                break;
             }
             if (this.spaceship.fired == true) {
                 if (this.checkCollision(this.astroids[a].getRectangle(), this.phaserbeam.getRectangle())) {
                     this.astroids[a].removeAstroid();
+                    this.score++;
+                    console.log(this.score);
                     break;
                 }
             }
