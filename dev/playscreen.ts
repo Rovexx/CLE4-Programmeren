@@ -89,6 +89,5 @@ class PlayScreen {
     public removeFromArray(removedMe: Astroid) {
         let i = this.astroids.indexOf(removedMe)
         this.astroids.splice(i, 1);
-        console.log("delete")
     }
 }
