@@ -22,7 +22,7 @@ class Spaceship extends GameObject {
     .......
 }
 ```
-```
+```TypeScript
 class Astroid extends GameObject {
     
     private game:Game
@@ -38,7 +38,7 @@ class Astroid extends GameObject {
 ```
 - Encapsulation 
 Ik maak overal gebruik van encapsulation. Zo maak ik bijvoorbeeld functies die overal bruikbaar moeten zijn public. Maar andere dingen zoals de snelheid en de toets registraties private omdat die alleen in het spacship.ts document gebuikt moeten worden zodat deze niet een onbedoelde waarde krijgen. Het is niet de bedoeling dat iemand vanuit astroid bijvoorbeeld de snelheid van het spaceship gaat veranderen naar een string.
-```
+```TypeScript
 class Spaceship extends GameObject {
      
     private downkey     : number
@@ -57,7 +57,7 @@ class Spaceship extends GameObject {
 ```
 - Composition
 Mijn game is zo opgebouwd dat mijn game verschillende schermen heeft zoals een gameover scherm of een speelscherm. Dit speelscherm heeft objecten als astroids en een spaceship. Er is dus niet 1 document dat alles heeft maar het is opgebouwd uit meerdere delen.
-```
+```TypeScript
 class Game {
     
     public currentscreen:any
@@ -90,7 +90,7 @@ class Game {
 - Inheritance
 Mijn spaceship , phaserbeam en astroids maken gebruik van inheritance omdat zij het gameObject.ts bestand allemeaal gebruiken. Zo word er geen dubbele code geschreven in de bestanden.
 
-```
+```TypeScript
 class Phaserbeam extends GameObject {
 
     private game:Game
@@ -101,7 +101,7 @@ class Phaserbeam extends GameObject {
     ......
 }
 ```
-```
+```TypeScript
 class GameObject {
     protected x: number
     protected y: number
