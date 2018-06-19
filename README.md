@@ -11,7 +11,7 @@ https://stud.hosted.hr.nl/0940512/game/docs/
 
 - Classes
 Ik heb alle objecten van de game in een class gezet. Zo heb ik bijvoorbeeld een spaceship class (dit ben jij) en een astroid class. deze moet je vermijden.
-```
+```TypeScript
 class Spaceship extends GameObject {
      
     private downkey     : number
