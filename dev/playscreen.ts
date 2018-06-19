@@ -5,7 +5,7 @@ class PlayScreen {
     private spaceship: Spaceship
     private game: Game
     private gamefix: number = 0
-    private score: number = 0;
+    private score: number = 0
 
     constructor(g:Game) {
         this.game = g
